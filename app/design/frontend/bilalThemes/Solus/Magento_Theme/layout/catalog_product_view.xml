@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <head>
+        <css src="css/bulbProduct.css"/>
+    </head>
+
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" before="product.info.main"
+                   name="solus.bulb.product" template="Magento_Theme::html/product.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" before="breadcrumbs"
+                   name="solus.bulb.productname" template="Magento_Theme::html/productName.phtml" />
+        </referenceContainer>
+
+       <!-- <move element="product.addto.links" destination="product.info.main" after="product.info.price"/>
+
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Framework\View\Element\Template" after="product.info.price"
+                   name="solus.bulb.product.infoname" template="Magento_Theme::html/productName.phtml" />
+        </referenceContainer>-->
+
+        <!--<move element="product.info.social" destination="product.info.main" before="product.info.price"/>-->
+        <!-- Modules removal -->
+        <referenceBlock name="product.info.main" remove="true"/>
+        <referenceBlock name="product.info.media" remove="true"/>
+        <referenceContainer name="product.price.final" remove="true"/>
+        <referenceBlock name="product.info.addtocart" remove="true"/>
+        <referenceBlock name="product.info.review" remove="true"/>
+        <referenceBlock name="product.review.form" remove="true"/>
+        <referenceBlock name="review_customer_list" remove="true"/>
+        <referenceBlock name="review_view" remove="true"/>
+        <referenceBlock name="reviews" remove="true"/>
+        <referenceBlock name="reviews.tab" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceBlock name="product.info.social" remove="true"/>
+        <referenceBlock name="product.info.price" remove="true"/>
+        <referenceBlock name="product.info.details" remove="true"/>
+    </body>
+</page>

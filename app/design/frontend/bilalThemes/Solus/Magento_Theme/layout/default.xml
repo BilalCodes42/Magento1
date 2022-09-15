@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!--<css src="css/new.css"/>-->
+        <css src="css/bootstrap.css"/>
+        <!--<css src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" src_type="url" />
+-->
+    </head>
+
+    <body>
+        <referenceContainer name="header.container">
+            <block class="Magento\Framework\View\Element\Template" after="header.panel"
+                   name="solus.navbar" template="Magento_Theme::html/Navbar.phtml" >
+                <arguments>
+                    <argument name="file_name" xsi:type="string">navbar.css</argument>
+                </arguments>
+            </block>
+           <!-- <block class="Magento\Framework\View\Element\Template" before="solus.navbar"
+                   name="solus.minicart" template="Magento_Theme::html/minicart.phtml" >
+                <arguments>
+                    <argument name="file_name" xsi:type="string">minicart.css</argument>
+                </arguments>
+            </block>-->
+        </referenceContainer>
+
+       <!-- its used to remove sign in block <referenceBlock name="authorization-link-login" remove="true"/>-->
+        <!-- its the search and cart one <referenceContainer name="header-wrapper" remove="true"/>-->
+        <!--<referenceContainer name="header.panel" remove="true"/>-->
+        <referenceContainer name="footer-container">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="solus.footer" template="Magento_Theme::html/Footer.phtml" />
+        </referenceContainer>
+
+        <move element="minicart" destination="header.container" before="solus.navbar"/>
+        <move element="header-wrapper" destination="header.container" after="solus.navbar"/>
+        <!--used for searching change if time -->
+        <referenceBlock name="top.search" remove="true"/>
+        <referenceBlock name="logo" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="footer" remove="true"/>
+
+    </body>
+</page>

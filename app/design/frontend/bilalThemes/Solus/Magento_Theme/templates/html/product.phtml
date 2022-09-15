@@ -1,0 +1,94 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product
+$store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+?>
+
+<div class="container-fluid">
+    <div>
+        <?php  if($product->getData('voltage') >= 77 && $product->getData('voltage') <= 100) { ?>
+            <div class="bg-danger text-center" style="font-size: 1.6rem; padding: 30px 0px; min-height: 120px;">
+                <div class="text-light" style="font-size: 50px; line-height: 35px;"><?php echo $product->getData('voltage');?><span>w</span></div>
+                <div class="text-light" style="line-height: 15px;"><span>=40w/530lm</span></div>
+            </div>
+        <?php } else if($product->getData('voltage') > 60 && $product->getData('voltage') <= 75) { ?>
+            <div class="bg-warning text-center" style="font-size: 1.6rem; padding: 30px 0px; min-height: 120px;">
+                <div class="text-light" style="font-size: 50px; line-height: 35px;"><?php echo $product->getData('voltage');?><span>w</span></div>
+                <div class="text-light" style="line-height: 15px;"><span>=40w/530lm</span></div>
+            </div>
+        <?php } else if($product->getData('voltage') > 40 && $product->getData('voltage') <= 60) { ?>
+            <div class="text-center" style="background-color:purple; font-size: 1.6rem; padding: 30px 0px; min-height: 120px;">
+                <div class="text-light" style="font-size: 50px; line-height: 35px;"><?php echo $product->getData('voltage');?><span>w</span></div>
+                <div class="text-light" style="line-height: 15px;"><span>=40w/530lm</span></div>
+            </div>
+        <?php } else if($product->getData('voltage') > 25 && $product->getData('voltage') <= 40) { ?>
+            <div class="text-center" style="background-color:darkseagreen; font-size: 1.6rem; padding: 30px 0px; min-height: 120px;">
+                <div class="text-light" style="font-size: 50px; line-height: 35px;"><?php echo $product->getData('voltage');?><span>w</span></div>
+                <div class="text-light" style="line-height: 15px;"><span>=40w/530lm</span></div>
+            </div>
+        <?php } else if($product->getData('voltage') > 0 && $product->getData('voltage') <= 25) { ?>
+            <div class="text-center" style="background-color:dodgerblue; font-size: 1.6rem; padding: 30px 0px; min-height: 120px;">
+                <div class="text-light" style="font-size: 50px; line-height: 35px;"><?php echo $product->getData('voltage');?><span>w</span></div>
+                <div class="text-light" style="line-height: 15px;"><span>=40w/530lm</span></div>
+            </div>
+        <?php } ?>
+    </div>
+    <div class="mb-5" style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row" style="width: 80%;">
+            <div style="width: 100%; margin-bottom: 50px;">
+                <div style="display: flex;justify-content: space-around;align-items: center;width: 100%;margin: 100px auto 0px;overflow: hidden;">
+                    <div style="width: 50%; background: #e6e7e9;text-align: center;padding: 60px 0px;float: left;">
+                        <?php $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $product->getData('image');
+                        echo "<img src=" . $productImageUrl . "  class='img-fluid mb-5 mt-5' alt='". $productImageUrl . "'  }>";?>
+                    </div>
+                    <div style="width: 50%;padding: 0px 40px;float: left;">
+                        <div class="border-bottom border-dark" style="margin-bottom: 20px;">
+                            <?php  if($product->getData('voltage') >= 77 && $product->getData('voltage') <= 100) { ?>
+                                <div class="text-danger">
+                                    <h1 style="margin-bottom: 0px;"><?php echo $product->getName(); ?></h1>
+                                </div>
+                            <?php } else if($product->getData('voltage') > 60 && $product->getData('voltage') <= 75) { ?>
+                                <div class="text-warning">
+                                    <h1 style="margin-bottom: 0px;"><?php echo $product->getName(); ?></h1>
+                                </div>
+                            <?php } else if($product->getData('voltage') > 40 && $product->getData('voltage') <= 60) { ?>
+                                <div style="color:purple;">
+                                    <h1 style="margin-bottom: 0px;"><?php echo $product->getName(); ?></h1>
+                                </div>
+                            <?php } else if($product->getData('voltage') > 25 && $product->getData('voltage') <= 40) { ?>
+                                <div style="color:darkseagreen;">
+                                    <h1 style="margin-bottom: 0px;"><?php echo $product->getName(); ?></h1>
+                                </div>
+                            <?php } else if($product->getData('voltage') > 0 && $product->getData('voltage') <= 25) { ?>
+                                <div style="color:dodgerblue;">
+                                    <h1 style="margin-bottom: 0px;"><?php echo $product->getName(); ?></h1>
+                                </div>
+                            <?php } ?>
+                            <h1><?php echo $product->getData('cap'). " Cap"; ?></h1>
+                            <a id="link" href="#" class="d-inline-block bg-dark fw-bold text-light text-center text-decoration-none" style="font-size: 1.6rem; padding: 7px 15px; margin-bottom: 15px;">Login or Register to see Price.</a>
+                        </div>
+                        <?php if($product->getDescription()) { ?>
+                        <div style="font-size: 24px; font-weight: bold; padding: 0px 0px 5px;">Product Description</div>
+                        <div style="font-size: 1.6rem ;"> <?php echo $product->getDescription(); ?> </div>
+                        <?php } else { ?>
+                        <div style="font-size: 24px; font-weight: bold; padding: 0px 0px 5px;">Product Description</div>
+                        <h3>Nothing !!!</h3>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5 mb-5 d-flex justify-content-center">
+        <div style="width: 70%;">
+            <?php if($product->getShortDescription()) { ?>
+                <div class="border-top border-bottom border-dark mb-3" style="font-size: 24px; font-weight: bold; padding: 0px 0px 5px;">Regulatory Information</div>
+                <div style="font-size: 1.6rem ;"> <?php echo $product->getShortDescription(); ?> </div>
+            <?php } else { ?>
+                <div class="border-top border-bottom border-dark mb-5" style="font-size: 24px; font-weight: bold; padding: 0px 0px 5px;">Regulatory Information</div>
+                <h3>Nothing !!!</h3>
+            <?php } ?>
+        </div>
+    </div>
+</div>

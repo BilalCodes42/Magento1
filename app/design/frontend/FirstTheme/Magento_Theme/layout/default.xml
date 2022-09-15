@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+       <!-- <css src="css/new.css"/>-->
+        <css src="css/bootstrap.css"/>
+        <!--<css src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" src_type="url" />
+-->
+    </head>
+
+    <body>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_file"  xsi:type="string">images/logo_1.png</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="copyright" remove="true"/>
+    </body>
+</page>

@@ -1,0 +1,6 @@
+<h1 class="text text-center">
+    <?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+    echo $product->getName(); ?>
+</h1>

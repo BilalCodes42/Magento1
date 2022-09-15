@@ -1,0 +1,175 @@
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+    $collectionFactory = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory')->create();
+    $products = $collectionFactory->addAttributeToSelect('*')
+        ->addCategoriesFilter(['in' => $category->getId()]);
+    $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+
+?>
+<?php
+    $hun = $sev = $six = $fou = $twe = False;
+    $h_count = $sev_count = $six_count = $fou_count = $twe_count = 0;
+    foreach ($products as $volt_product) {
+        if($volt_product->getData('voltage') >= 77 && $volt_product->getData('voltage') <= 100) {
+            $hun = True;
+            $hunBulb[$h_count] = $volt_product->getData();
+            $h_count++;
+        }
+        else if($volt_product->getData('voltage') > 60 && $volt_product->getData('voltage') <= 75) {
+            $sev = True;
+            $sevBulb[$sev_count] = $volt_product->getData();
+            $sev_count++;
+        }
+        else if($volt_product->getData('voltage') > 40 && $volt_product->getData('voltage') <= 60) {
+            $six = True;
+            $sixBulb[$six_count] = $volt_product->getData();
+            $six_count++;
+        }
+        else if($volt_product->getData('voltage') > 25 && $volt_product->getData('voltage') <= 40) {
+            $fou = True;
+            $fouBulb[$fou_count] = $volt_product->getData();
+            $fou_count++;
+        }
+        else if($volt_product->getData('voltage') > 0 && $volt_product->getData('voltage') <= 25) {
+            $twe = True;
+            $tweBulb[$twe_count] = $volt_product->getData();
+            $twe_count++;
+        }
+        else { echo "Product does not satisfy category bounds !!!!!!!"; }
+    }
+?>
+
+
+<?php if($hun) { ?>
+    <div class="container-fluid">
+    <div>
+        <div class="bg-danger text-center d-flex justify-content-center align-items-center" style="font-size: 1.6rem; padding: 30px 0px; height: 160px;">
+            <div class="text-light fw-bold" style="font-size: 60px; line-height: 35px;">100 W</div>
+        </div>
+    </div>
+    <div style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+                <?php
+                for ($h = 0; $h<$h_count; $h++) {
+                        echo "<div class='col text-center'>";
+                        echo "<h3 class='text-danger'>" . $hunBulb[$h]['name'] . "</h3>";
+                        echo "<p style='font-size: 1.4rem;'>" . $hunBulb[$h]['cap'] . " Cap </p>";
+                        $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $hunBulb[$h]['image'];
+                        echo "<img src=" . $productImageUrl . " class='img-fluid mb-5 mt-5' alt='image-icon'  }> <br/>";
+                        $url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . $hunBulb[$h]['url_key'] . ".html";
+                        echo "<a href=" . $url. " class='p-3 m-5 w-100 bg-dark text-light text-center text-decoration-none'>More Info</a>";
+                        echo "</div>";
+                }
+                ?>
+        </div>
+    </div>
+</div>
+<?php } if ($sev) { ?>
+    <div class="container-fluid">
+    <div>
+        <div class="bg-warning text-center d-flex justify-content-center align-items-center" style="font-size: 1.6rem; padding: 30px 0px; height: 160px;">
+            <div class="text-light fw-bold" style="font-size: 60px; line-height: 35px;">75 W</div>
+        </div>
+    </div>
+    <div style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+            <?php
+            for ($s = 0; $s<$sev_count; $s++) {
+                echo "<div class='col text-center'>";
+                echo "<h3 class='text-warning'>" . $sevBulb[$s]['name'] . "</h3>";
+                echo "<p style='font-size: 1.4rem;'>" . $sevBulb[$s]['cap'] . " Cap </p>";
+                $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $sevBulb[$s]['image'];
+                echo "<img src=" . $productImageUrl . " class='img-fluid mb-5 mt-5' alt='image-icon'  }> <br/>";
+                $url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . $sevBulb[$s]['url_key'] . ".html";
+                echo "<a href=" . $url. " class='p-3 m-5 w-100 bg-dark text-light text-center text-decoration-none'>More Info</a>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<?php } if ($six) { ?>
+    <div class="container-fluid">
+    <div>
+        <div class="text-center d-flex justify-content-center align-items-center" style="background-color: purple; font-size: 1.6rem; padding: 30px 0px; height: 160px;">
+            <div class="text-light fw-bold" style="font-size: 60px; line-height: 35px;">60 W</div>
+        </div>
+    </div>
+    <div style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+            <?php
+            for ($six = 0; $six<$six_count; $six++) {
+                echo "<div class='col text-center'>";
+                echo "<h4 style='color: purple;'>" . $sixBulb[$six]['name'] . "</h4>";
+                echo "<p style='font-size: 1.4rem;'>" . $sixBulb[$six]['cap'] . " Cap </p>";
+                $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $sixBulb[$six]['image'];
+                echo "<img src=" . $productImageUrl . " class='img-fluid mb-5 mt-5' alt='image-icon'  }> <br/>";
+                $url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . $sixBulb[$six]['url_key'] . ".html";
+                echo "<a href=" . $url. " class='p-3 m-5 w-100 bg-dark text-light text-center text-decoration-none'>More Info</a>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<?php } if ($fou) { ?>
+    <div class="container-fluid">
+    <div>
+        <div class="text-center d-flex justify-content-center align-items-center" style="background-color: darkseagreen; font-size: 1.6rem; padding: 30px 0px; height: 160px;">
+            <div class="text-light fw-bold" style="font-size: 60px; line-height: 35px;">40 W</div>
+        </div>
+    </div>
+    <div style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+            <?php
+            for ($f = 0; $f<$fou_count; $f++) {
+                echo "<div class='col text-center'>";
+                echo "<h4 style='color:darkseagreen;'>" . $fouBulb[$f]['name'] . "</h4>";
+                echo "<p style='font-size: 1.4rem;'>" . $fouBulb[$f]['cap'] . " Cap </p>";
+                $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $fouBulb[$f]['image'];
+                echo "<img src=" . $productImageUrl . " class='img-fluid mb-5 mt-5' alt='image-icon'  }> <br/>";
+                $url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . $fouBulb[$f]['url_key'] . ".html";
+                echo "<a href=" . $url. " class='p-3 m-5 w-100 bg-dark text-light text-center text-decoration-none'>More Info</a>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<?php } if ($twe) { ?>
+    <div class="container-fluid">
+    <div>
+        <div class="text-center d-flex justify-content-center align-items-center" style="background-color:dodgerblue ;font-size: 1.6rem; padding: 30px 0px; height: 160px;">
+            <div class="text-light fw-bold" style="font-size: 60px; line-height: 35px;">25 W</div>
+        </div>
+    </div>
+    <div style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+            <?php
+            for ($t = 0; $t<$twe_count; $t++) {
+                echo "<div class='col text-center'>";
+                echo "<h4 style='color:dodgerblue;'>" . $tweBulb[$t]['name'] . "</h4>";
+                echo "<p style='font-size: 1.4rem;'>" . $tweBulb[$t]['cap'] . " Cap </p>";
+                $productImageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $tweBulb[$t]['image'];
+                echo "<img src=" . $productImageUrl . " class='img-fluid mb-5 mt-5' alt='image-icon'  }> <br/>";
+                $url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . $tweBulb[$t]['url_key'] . ".html";
+                echo "<a href=" . $url. " class='p-3 m-5 w-100 bg-dark text-light text-center text-decoration-none'>More Info</a>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<?php } ?>

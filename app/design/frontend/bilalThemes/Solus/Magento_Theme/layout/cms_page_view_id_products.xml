@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <head>
+        <css src="css/bulbChoose.css"/>
+    </head>
+
+    <body>
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" before="breadcrumbs"
+                   name="solus.bulb.categoryname" template="Magento_Theme::html/categoryName.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" after="breadcrumbs"
+                   name="solus.bulb.category" template="Magento_Theme::html/category.phtml" />
+        </referenceContainer>
+
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <move element="breadcrumbs" destination="content" before="solus.bulb.category"/>
+    </body>
+</page>

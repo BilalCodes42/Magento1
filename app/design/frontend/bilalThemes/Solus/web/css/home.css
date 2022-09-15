@@ -1,0 +1,6 @@
+body {
+    background-image: url('../images/home-banner.jpg');
+    background-size: cover;
+    background-position : 0px -280px;
+    background-repeat : no-repeat;
+}

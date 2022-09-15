@@ -1,0 +1,230 @@
+<h4>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+    $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');// Instance of Category Model
+    $categoryId = 2; // YOUR CATEGORY ID
+    $category = $categoryFactory->create()->load($categoryId);
+    // Children  Categories
+    $childrenCategories = $category->getChildrenCategories()->addAttributeToSelect('*');
+    //print_r($childrenCategories->getData());
+    $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+?>
+</h4>
+
+
+<div class="container-fluid">
+    <div>
+        <div class="bg-warning text-center d-flex justify-content-center align-items-center" style="font-size: 1.6rem; padding: 30px 0px; height: 160px;">
+            <div style="font-size: 24px; line-height: 35px;">Choose A Bulb</div>
+        </div>
+    </div>
+    <div style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+
+    <?php
+        $pos = 0;
+        foreach($childrenCategories as $key => $value) { $cap_5 = $cap_1 = $cap_2 = $hun = $sev = $six = $fou = $twe = False;
+            $collectionFactory = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory')->create();
+            $products = $collectionFactory->addAttributeToSelect('*')
+                ->addCategoriesFilter(['in' => $key]); ?>
+            <?php if($pos%2 == 0) { ?>
+            <div class="container">
+                <div class="row">
+                    <div style="width: 100%; margin-bottom: 50px;">
+                        <div style="display: flex;justify-content: space-around;align-items: center;width: 100%;margin: 100px auto 0px;overflow: hidden;">
+                            <div style="width: 50%; background: #e6e7e9;text-align: center;padding: 60px 0px;float: left;">
+                                <img src='<?php echo $value->getImageUrl(); ?>' alt="image-icon" width="300" height="400">
+                            </div>
+                            <div style="width: 50%;padding: 0px 40px;float: left;">
+                                <div style="font-size: 24px; font-weight: bold; padding: 0px 0px 5px;"><?php echo $value->getName(); ?></div>
+                                <div style="font-size: 1.6rem"> <?php echo $value->getDescription(); ?> </div>
+                                <div style="border-top: 1px solid #bcbec0;border-bottom: 1px solid #bcbec0;margin: 10px 0px;padding: 10px 0px;overflow: hidden;">
+                                    <div style="flex-direction: column;align-items: flex-start;">
+                                        <div style="margin-bottom: 10px;float: none; margin-right: 30px;font-size: 16px;padding-top: 15px;">Cap options</div>
+                                        <?php
+                                        foreach($products as $p) {
+                                            if($p->getData('cap') == .5) {
+                                                $cap_5 = True;
+                                            }
+                                            else if($p->getData('cap') == 1) {
+                                                $cap_1 = True;
+                                            }
+                                            else if($p->getData('cap') == 2) {
+                                                $cap_2 = True;
+                                            }
+                                        }
+                                        ?>
+                                        <div class="d-flex">
+                                            <div class="me-5 text-center">
+                                                <?php if($cap_5 == True) { ?>
+                                                <img class="me-4" src='<?php echo $this->getViewFileUrl('images/capacity-icon-1.png'); ?>' alt="image-icon" width="70px" height="auto">
+                                                <?php } ?>
+                                                <?php if($cap_1 == True) { ?>
+                                                    <img class="me-4" src='<?php echo $this->getViewFileUrl('images/capacity-icon-2.png'); ?>' alt="image-icon" width="70px" height="auto">
+                                                <?php } ?>
+                                                <?php if($cap_2 == True) { ?>
+                                                <img src='<?php echo $this->getViewFileUrl('images/capacity-icon-3.png'); ?>' alt="image-icon" width="70px" height="auto">
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding-top: 10px; overflow: hidden;">
+                                        <div style="float: none; margin-right: 30px;font-size: 16px;padding-top: 15px; ">Wattages</div>
+                                        <?php
+                                        foreach($products as $p) {
+                                            if($p->getData('voltage') >= 77 && $p->getData('voltage') <= 100) {
+                                                $hun = True;
+                                            }
+                                            else if($p->getData('voltage') > 60 && $p->getData('voltage') <= 75) {
+                                                $sev = True;
+                                            }
+                                            else if($p->getData('voltage') > 40 && $p->getData('voltage') <= 60) {
+                                                $six = True;
+                                            }
+                                            else if($p->getData('voltage') > 25 && $p->getData('voltage') <= 40) {
+                                                $fou = True;
+                                            }
+                                            else if($p->getData('voltage') > 0 && $p->getData('voltage') <= 25) {
+                                                $twe = True;
+                                            }
+                                        }
+                                        ?>
+                                        <div style="float: none; text-align: center; display: flex; flex-wrap: wrap; justify-content: flex-start; margin-top: 10px;">
+                                            <?php if($hun == True) { ?>
+                                            <div class="bg-danger" style="font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                <div style="font-size: 1.8rem;margin-top: 8px;">100<sub>w</sub></div>
+                                                <div style="font-size: .8rem;"><span>40w / 530lm</span></div>
+                                            </div>
+                                            <?php }  if($sev == True) { ?>
+                                            <div class="bg-warning" style="font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                <div style="font-size: 1.8rem;margin-top: 8px;">75<sub>w</sub></div>
+                                                <div style="font-size: .8rem;"><span>33w / 460lm</span></div>
+                                            </div>
+                                            <?php }  if($six == True) { ?>
+                                            <div style="background-color: purple ; font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                <div style="font-size: 1.8rem;margin-top: 8px;">60<sub>w</sub></div>
+                                                <div style="font-size: .8rem;"><span>28w / 300lm</span></div>
+                                            </div>
+                                            <?php }  if($fou == True) { ?>
+                                            <div style="background-color: darkseagreen ; font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                <div style="font-size: 1.8rem;margin-top: 8px;">40<sub>w</sub></div>
+                                                <div style="font-size: .8rem;"><span>28w / 300lm</span></div>
+                                            </div>
+                                            <?php }  if($twe == True) { ?>
+                                            <div style="background-color: dodgerblue ; font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                <div style="font-size: 1.8rem;margin-top: 8px;">25<sub>w</sub></div>
+                                                <div style="font-size: .8rem;"><span>28w / 300lm</span></div>
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php $url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . $value->getData('url_key') . ".html"; ?>
+                                <a id="link" href="<?php echo $url; ?>" class="d-inline-block bg-dark fw-bold text-light text-center text-decoration-none" style="font-size: 1.6rem; padding: 7px 15px;">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } else if ($pos % 2 != 0) {?>
+            <div class="container">
+                <div class="row">
+                    <div style="width: 100%; margin-bottom: 50px;">
+                        <div style="display: flex;justify-content: space-around;align-items: center;width: 100%;margin: 100px auto 0px;overflow: hidden;">
+                            <div style="width: 50%; order : 1; background: #e6e7e9;text-align: center;padding: 60px 0px;float: left;">
+                                <img src='<?php echo $value->getImageUrl(); ?>' alt="image-icon" width="300" height="400">
+                            </div>
+                            <div style="width: 50%;padding: 0px 40px;float: left;">
+                                <div style="font-size: 24px; font-weight: bold; padding: 0px 0px 5px;"><?php echo $value->getName(); ?></div>
+                                <div style="font-size: 1.6rem"> <?php echo $value->getDescription(); ?> </div>
+                                <div style="border-top: 1px solid #bcbec0;border-bottom: 1px solid #bcbec0;margin: 10px 0px;padding: 10px 0px;overflow: hidden;">
+                                    <div style="flex-direction: column;align-items: flex-start;">
+                                        <div style="margin-bottom: 10px;float: none; margin-right: 30px;font-size: 16px;padding-top: 15px;">Cap options</div>
+                                        <?php
+                                        foreach($products as $p) {
+                                            if($p->getData('cap') == .5) {
+                                                $cap_5 = True;
+                                            }
+                                            else if($p->getData('cap') == 1) {
+                                                $cap_1 = True;
+                                            }
+                                            else if($p->getData('cap') == 2) {
+                                                $cap_2 = True;
+                                            }
+                                        }
+                                        ?>
+                                        <div class="d-flex">
+                                            <div class="me-5 text-center">
+                                                <?php if($cap_5 == True) { ?>
+                                                    <img class="me-4" src='<?php echo $this->getViewFileUrl('images/capacity-icon-1.png'); ?>' alt="image-icon" width="70px" height="auto">
+                                                <?php } ?>
+                                                <?php if($cap_1 == True) { ?>
+                                                    <img class="me-4" src='<?php echo $this->getViewFileUrl('images/capacity-icon-2.png'); ?>' alt="image-icon" width="70px" height="auto">
+                                                <?php } ?>
+                                                <?php if($cap_2 == True) { ?>
+                                                    <img src='<?php echo $this->getViewFileUrl('images/capacity-icon-3.png'); ?>' alt="image-icon" width="70px" height="auto">
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding-top: 10px; overflow: hidden;">
+                                        <div style="float: none; margin-right: 30px;font-size: 16px;padding-top: 15px; ">Wattages</div>
+                                        <?php
+                                        foreach($products as $p) {
+                                            if($p->getData('voltage') >= 77 && $p->getData('voltage') <= 100) {
+                                                $hun = True;
+                                            }
+                                            else if($p->getData('voltage') > 60 && $p->getData('voltage') <= 75) {
+                                                $sev = True;
+                                            }
+                                            else if($p->getData('voltage') > 40 && $p->getData('voltage') <= 60) {
+                                                $six = True;
+                                            }
+                                            else if($p->getData('voltage') > 25 && $p->getData('voltage') <= 40) {
+                                                $fou = True;
+                                            }
+                                            else if($p->getData('voltage') > 0 && $p->getData('voltage') <= 25) {
+                                                $twe = True;
+                                            }
+                                        }
+                                        ?>
+                                        <div style="float: none; text-align: center; display: flex; flex-wrap: wrap; justify-content: flex-start; margin-top: 10px;">
+                                            <?php if($hun == True) { ?>
+                                                <div class="bg-danger" style="font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                    <div style="font-size: 1.8rem;margin-top: 8px;">100<sub>w</sub></div>
+                                                    <div style="font-size: .8rem;"><span>40w / 530lm</span></div>
+                                                </div>
+                                            <?php }  if($sev == True) { ?>
+                                                <div class="bg-warning" style="font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                    <div style="font-size: 1.8rem;margin-top: 8px;">75<sub>w</sub></div>
+                                                    <div style="font-size: .8rem;"><span>33w / 460lm</span></div>
+                                                </div>
+                                            <?php }  if($six == True) { ?>
+                                                <div style="background-color: purple ; font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                    <div style="font-size: 1.8rem;margin-top: 8px;">60<sub>w</sub></div>
+                                                    <div style="font-size: .8rem;"><span>28w / 300lm</span></div>
+                                                </div>
+                                            <?php }  if($fou == True) { ?>
+                                                <div style="background-color: darkseagreen ; font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                    <div style="font-size: 1.8rem;margin-top: 8px;">40<sub>w</sub></div>
+                                                    <div style="font-size: .8rem;"><span>28w / 300lm</span></div>
+                                                </div>
+                                            <?php }  if($twe == True) { ?>
+                                                <div style="background-color: dodgerblue ; font-size: 17px; font-weight: bold; color: #ffff; border-radius: 50%; text-align: center; width: 60px; height: 60px; margin-right: 10px; margin-bottom: 10px; float: left;">
+                                                    <div style="font-size: 1.8rem;margin-top: 8px;">25<sub>w</sub></div>
+                                                    <div style="font-size: .8rem;"><span>28w / 300lm</span></div>
+                                                </div>
+                                            <?php }?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php $url = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK) . $value->getData('url_key') . ".html"; ?>
+                                <a id="link" href="<?php echo $url; ?>" class="d-inline-block bg-dark fw-bold text-light text-center text-decoration-none" style="font-size: 1.6rem; padding: 7px 15px;">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+    <?php $pos++;} ?>
+</div>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <head>
+        <script src="js/choose.js"/>
+        <css src="css/bulbChoose.css"/>
+    </head>
+
+    <body>
+
+        <!--<referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">
+                    Choose A Bulb
+                </argument>
+            </action>
+        </referenceBlock>-->
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" before="breadcrumbs"
+                   name="solus.bulb.chooseName" template="Magento_Theme::html/chooseName.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" after="breadcrumbs"
+                   name="solus.bulb.choose" template="Magento_Theme::html/choose.phtml" />
+        </referenceContainer>
+
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <move element="breadcrumbs" destination="content" before="solus.bulb.choose"/>
+    </body>
+</page>

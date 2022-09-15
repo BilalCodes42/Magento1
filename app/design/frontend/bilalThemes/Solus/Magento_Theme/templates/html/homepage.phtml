@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <?php
+    for($j=0;$j<26;$j++)
+    {
+        echo "<br/>";
+    }
+    /*for($i=0;$i<41;$i++)
+        {
+            echo "<img src=" . $this->getViewFileUrl('images/checkboard.jpg') . " class='img-fluid' alt='image-icon'  }>";
+        }*/
+    ?>
+    <div style="height: 20px; background: url('<?php echo $this->getViewFileUrl('images/checkboard.jpg'); ?>'); background-repeat-x: repeat; background-size: contain;"></div>
+    <div class="container-fluid bg-warning">
+        <div class="d-flex align-items-center justify-content-center" style="font-size: 50px; text-align: center; height: 250px;">The light of Irish life<br>for 80 years.</div>
+    </div>
+
+    <div class="container-fluid bg-dark d-flex align-items-center justify-content-between" style=" padding: 60px 90px; font-size: 1.6rem;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-warning">Choosing a Bulb</h2>
+                    <p class="text-light">Our comprehensive range of Solus light bulbs include lighting solutions for every light fitting in the home.  As the country's leading lighting expert, you can be sure that every light bulb we make is a shining example of quality with the highest standards in energy efficiency.</p>
+                    <a href="#" class="text-light"><strong>Read More</strong></a></div>
+                <div class="col-md-6" style="padding-left:150px;"><img src='<?php echo $this->getViewFileUrl('images/home_product_section.jpg'); ?>' alt="image-icon" width="400px" height="-10px"}></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-light d-flex align-items-center justify-content-between" style=" padding: 60px 90px; font-size: 1.6rem;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="padding-right:100px;"><img src='<?php echo $this->getViewFileUrl('images/home-about-section.jpg'); ?>' alt="image-icon" width="400px" height="-10px"}></div>
+                <div class="col-md-6">
+                    <h2 class="text-warning">About Us</h2>
+                    <p>Solus is a proud Irish company with over 80 years of building customer trust, recognition and reliability. Solus has been at the forefront of technology and lighting in Irish homes since electricity was first introduced in 1935.</p>
+                    <a class="text-dark" href="#"><strong>Read More</strong></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-warning d-flex align-items-center justify-content-between" style=" padding: 60px 90px; font-size: 1.6rem;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-light">Planet First</h2>
+                    <p class="text-dark">olus is Ireland cleanest greenest lighting company.  We care about the planet so we make sure our bulbs light the world as sustainably as possible.  We care deeply about the future of our world and that of our customers, so we have launched a key initiative and promise to ourselves and the world, which we call Planet First. This means we always consider the environmental impact of everything we make and do.</p>
+                    <a href="/magento2/planetfirst" class="text-dark"><strong>Read More</strong></a></div>
+                <div class="col-md-6" style="padding-left:150px;"><img src='<?php echo $this->getViewFileUrl('images/home_choosing_section.jpg'); ?>' alt="image-icon" width="400px" height="-10px"}></div>
+            </div>
+        </div>
+    </div>
+</div>

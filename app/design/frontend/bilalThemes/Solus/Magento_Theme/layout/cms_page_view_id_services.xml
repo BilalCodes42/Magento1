@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="css/services.css"/>
+    </head>
+    <body>
+        <referenceContainer name="header.container">
+            <block class="Magento\Framework\View\Element\Template" before="solus.navbar"
+                   name="solus.navbar.light" template="Magento_Theme::html/Navbarlight.phtml" >
+                <arguments>
+                    <argument name="file_name" xsi:type="string">navbar.css</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="solus.navbar" remove="true"/>
+        <move element="minicart" destination="header.container" before="solus.navbar.light"/>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="solus.services" template="Magento_Theme::html/services.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+    </body>
+</page>
